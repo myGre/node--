@@ -1,0 +1,1 @@
+@node "D:\hwc\node-echo\lic\echo.js" %*
