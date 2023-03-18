@@ -1,0 +1,17 @@
+# POST http://127.0.0.1:6666 HTTP/1.1
+# content-type: application/json
+
+# {
+#     "name":"Hendry",
+#     "salary":"61888",
+#     "age":"26"
+# }
+###
+curl -d 'nick=casper&hello=world' http://127.0.0.1:6666
+
+###
+curl -d 'nick=casper&hello=world' http://127.0.0.1:6666
+###
+curl -d 'nick=casper&hello=world' http://127.0.0.1:6666
+
+
