@@ -1,25 +1,17 @@
-const http = require('http')
-const path = require('path')
-const serve = http.createServer(
-	// function (request, response) {
-	// 	response.writeHead(200, { 'Content-Type': 'text-plain' });
-	// 	response.end('Hello World\n');
-	// }
-)
-path.parse('http://localhost:3000/')
+let dgram = require('dgram')
+var PORT = 33333;
+var HOST = '127.0.0.1';
+let server = dgram.createSocket('udp4')
 
-serve.on('request', (req, res) => {
-	res.setHeader('Content-Type', 'text/html; charset=utf-8')
-	console.log(req);
-	// res.header()
-	res.end('111')
+server.on('listening', () => {
+	let address = server.address
+	console.log('udp监听到来自 ' + address.address + ":" + address.port);
 })
 
-serve.listen('3000', () => {
-	console.log('正在监听3000端口');
+server.on('connect', () => {
+	console.log('成功');
 })
-
-
-http.get('http://localhost:3000/', (res) => {
-	console.log(res.statusCode);
-})
+server.on('message', (msg, rinfo) => {
+	console.log(`服务器获得: ${msg} from ${rinfo.address}:${rinfo.port}`);
+});
+server.bind(PORT, HOST)

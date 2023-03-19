@@ -1,25 +1,17 @@
-const http = require('http')
-const path = require('path')
-const serve = http.createServer(
-	// function (request, response) {
-	// 	response.writeHead(200, { 'Content-Type': 'text-plain' });
-	// 	response.end('Hello World\n');
-	// }
-)
-path.parse('http://localhost:3000/')
-
-serve.on('request', (req, res) => {
-	res.setHeader('Content-Type', 'text/html; charset=utf-8')
-	console.log(req);
-	// res.header()
-	res.end('111')
+const net = require('net')
+var PORT = 3000;
+var HOST = '127.0.0.1';
+let socket = net.createServer((socket) => {
+	console.log('服务端：收到来自客户端的请求');
+	socket.on('data', (data) => {
+		console.log('收到来自客户端的数据:' + data);
+	})
+	socket.write('写给客户端的内容')
+})
+socket.on('close', () => {
+	console.log('与客户端断开连接');
 })
 
-serve.listen('3000', () => {
-	console.log('正在监听3000端口');
-})
-
-
-http.get('http://localhost:3000/', (res) => {
-	console.log(res.statusCode);
+socket.listen(PORT, HOST, () => {
+	console.log('服务端：开始监听来自客户端的请求');
 })
